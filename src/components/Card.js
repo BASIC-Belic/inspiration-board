@@ -11,7 +11,10 @@ const Card = (props) => {
 
   return (
     <div className="card">
-      <p> {quote} {emoji} </p>
+      <ul>
+        <li> {quote} </li>
+        <li> {emoji} </li>
+      </ul>
     </div>
   )
 }
