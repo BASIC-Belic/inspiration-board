@@ -4,7 +4,7 @@ import axios from 'axios';
 import './Board.css';
 import Card from './Card';
 import NewCardForm from './NewCardForm';
-import CARD_DATA from '../data/card-data.json';
+// import CARD_DATA from '../data/card-data.json';
 
 class Board extends Component {
   constructor(props) {
@@ -43,20 +43,27 @@ class Board extends Component {
     .then((response) => {
       const card = response.data.card;
       alert(`Successfully deleted card with id ${card.id} and message ${card.text}.`)
+
       const updatedCards = this.state.cards.filter((card) => {
         return card.card.id !== id
       })
+
       this.setState({
         cards: updatedCards
       })
     })
     .catch((error) => {
       const errorStr = `Got an error with status ${error.response.status} and message ${error.response.statusText}`
-
       this.setState({
         error: errorStr
       })
     })
+  }
+
+  addCard = (cardObj) => {
+
+    console.log(cardObj)
+
   }
 
   render() {
@@ -71,6 +78,7 @@ class Board extends Component {
 
       return (
         <div>
+          <NewCardForm addCardCallback={this.addCard}/>
           {display}
         </div>
       )
