@@ -18,7 +18,7 @@ class Board extends Component {
     };
   }
   componentDidMount( ) {
-    const allCardsURL = this.state.url + this.state.boardName + 'cards/';
+    const allCardsURL = this.state.url + 'boards/' + this.state.boardName + 'cards/';
 
     axios.get(allCardsURL)
     .then((response) => {
@@ -37,30 +37,49 @@ class Board extends Component {
   }
 
   deleteCard = (id) => {
-      alert(`button with id ${id}`)
+
+    const deleteURL = `${this.state.url}cards/${id}`
+    axios.delete(deleteURL)
+    .then((response) => {
+      const card = response.data.card;
+      alert(`Successfully deleted card with id ${card.id} and message ${card.text}.`)
+      const updatedCards = this.state.cards.filter((card) => {
+        return card.card.id !== id
+      })
+      this.setState({
+        cards: updatedCards
+      })
+    })
+    .catch((error) => {
+      const errorStr = `Got an error with status ${error.response.status} and message ${error.response.statusText}`
+
+      this.setState({
+        error: errorStr
+      })
+    })
   }
 
   render() {
 
     const cards = this.state.cards.map((card) => {
-    return (<Card key={`${card.card.id}${card.card.text}${card.card.emoji}`}
-       quote={card.card.text} emoji={card.card.emoji} id={card.card.id} deleteCardCallback={this.deleteCard}/>)
-    })
+      return (<Card key={`${card.card.id}${card.card.text}${card.card.emoji}`}
+        quote={card.card.text} emoji={card.card.emoji} id={card.card.id} deleteCardCallback={this.deleteCard}/>)
+      })
 
-    const display = (this.state.cards.length !== 0) ? (<section>{cards}</section>)
-    : (<p>{this.state.error}</p>) ;
+      const display = (this.state.cards.length !== 0) ? (<section>{cards}</section>)
+      : (<p>{this.state.error}</p>) ;
 
-    return (
-      <div>
-        {display}
-      </div>
-    )
+      return (
+        <div>
+          {display}
+        </div>
+      )
+    }
   }
-}
 
-Board.propTypes = {
-  url: PropTypes.string.isRequired,
-  boardName: PropTypes.string.isRequired
-};
+  Board.propTypes = {
+    url: PropTypes.string.isRequired,
+    boardName: PropTypes.string.isRequired
+  };
 
-export default Board;
+  export default Board;
