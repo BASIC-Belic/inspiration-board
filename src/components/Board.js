@@ -26,7 +26,6 @@ class Board extends Component {
       this.setState({
         cards: response.data
       })
-
     })
     .catch((error)=> {
       const errorStr = `Got an error with status ${error.response.status} and message ${error.response.statusText}`
@@ -41,7 +40,7 @@ class Board extends Component {
 
     const cards = this.state.cards.map((card) => {
     return (<Card key={`${card.card.id}${card.card.text}${card.card.emoji}`}
-       quote={card.card.text} emoji={card.card.emoji} />)
+       quote={card.card.text} emoji={card.card.emoji} id={card.card.id}/>)
     })
 
     const display = (this.state.cards.length !== 0) ? (<section>{cards}</section>)
@@ -53,7 +52,6 @@ class Board extends Component {
       </div>
     )
   }
-
 }
 
 Board.propTypes = {

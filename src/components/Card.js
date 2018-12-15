@@ -7,13 +7,14 @@ import './Card.css';
 
 const Card = (props) => {
 
-  const { quote, emoji } = props;
+  const { quote, emoji, id } = props;
 
   return (
     <div className="card">
       <ul>
         <li> {quote} </li>
         <li> {emoji} </li>
+        <li><button>Button has id {id}</button></li>
       </ul>
     </div>
   )
