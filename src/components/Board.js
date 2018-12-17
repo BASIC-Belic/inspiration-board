@@ -62,8 +62,24 @@ class Board extends Component {
 
   addCard = (cardObj) => {
 
-    console.log(cardObj)
+    let URL = `${this.state.url}boards/${this.state.boardName}cards`;
 
+    axios.post(URL, cardObj)
+    .then((response) => {
+      const updatedCards = this.state.cards;
+      updatedCards.push(response.data.card);
+      console.log(updatedCards, "response", response.data)
+      this.setState({
+        cards: updatedCards
+      })
+    })
+    .catch((error) => {
+      const errorStr = `Got an error with status ${error.response.status} and message ${error.response.statusText}`
+      this.setState({
+        error: errorStr
+      })
+    })
+    console.log(cardObj, "url:", URL)
   }
 
   render() {
