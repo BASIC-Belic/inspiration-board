@@ -79,14 +79,13 @@ class Board extends Component {
         error: errorStr
       })
     })
-    console.log(cardObj, "url:", URL)
   }
 
   render() {
 
     const cards = this.state.cards.map((card) => {
       return (<Card key={`${card.card.id}${card.card.text}${card.card.emoji}`}
-        quote={card.card.text} emoji={card.card.emoji} id={card.card.id} deleteCardCallback={this.deleteCard}/>)
+        text={card.card.text} emoji={card.card.emoji} id={card.card.id} deleteCardCallback={this.deleteCard}/>)
       })
 
       const display = (this.state.cards.length !== 0) ? (<section>{cards}</section>)

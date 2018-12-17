@@ -7,7 +7,7 @@ import './Card.css';
 
 const Card = (props) => {
 
-  const { quote, emojiText, id, deleteCardCallback} = props;
+  const { text, emoji, id, deleteCardCallback} = props;
 
   const onDelete = () => {
     deleteCardCallback(id);
@@ -16,8 +16,8 @@ const Card = (props) => {
   return (
     <div className="card">
       <ul>
-        <li> {quote} </li>
-        <li> {emojiText} </li>
+        <li> {text} </li>
+        <li> {emoji} </li>
         <li><button onClick={onDelete}>Uninspired...</button></li>
       </ul>
     </div>
@@ -25,8 +25,8 @@ const Card = (props) => {
 }
 
 Card.propTypes = {
-  quote: PropTypes.string.isRequired,
-  emojiText: PropTypes.string,
+  text: PropTypes.string.isRequired,
+  emoji: PropTypes.string,
   id: PropTypes.number,
   deleteCardCallback: PropTypes.func
 };

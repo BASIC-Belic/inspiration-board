@@ -8,7 +8,9 @@ describe('Card', () => {
     // Arrange
     const wrapper = shallow( <
       Card text="text"
-      emoji="emoji" />);
+      emoji="emoji"
+      id={0}
+      deleteCardCallback={() => {} }/>);
 
       // Assert that it looks like the last snapshot
       expect(wrapper).toMatchSnapshot();
